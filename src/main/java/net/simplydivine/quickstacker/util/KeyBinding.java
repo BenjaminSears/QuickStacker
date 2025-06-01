@@ -10,7 +10,7 @@ public class KeyBinding {
     public static final String QuickStackKeyCategory = "key.category.quickstacker";
     public static final String QuickStackKeyDescription = "key.quickstacker.quickstack";
 
-    public static final KeyMapping quickStack = new KeyMapping(
+    public static final KeyMapping quickStackKey = new KeyMapping(
             QuickStackKeyDescription,
             KeyConflictContext.IN_GAME,
             KeyModifier.CONTROL,
