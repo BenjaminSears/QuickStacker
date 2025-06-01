@@ -3,6 +3,7 @@ package net.simplydivine.quickstacker.services;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuickStackerService {
+    // TODO: exclude empty containers
     public  List<Container> GetNearbyContainers(Level world, BlockPos pos, int radius, boolean includeEmpty) {
         List<Container> nearbyContainers = new ArrayList<>();
 
@@ -21,9 +23,7 @@ public class QuickStackerService {
                     BlockEntity blockEntity = world.getBlockEntity(checkPos);
 
                     if (blockEntity instanceof Container container) {
-                        if (container.isEmpty() == includeEmpty) {
-                            nearbyContainers.add(container);
-                        }
+                        nearbyContainers.add(container);
                     }
                 }
             }
@@ -33,6 +33,7 @@ public class QuickStackerService {
     }
 
     public void FindMatchingItems(LocalPlayer player, List<Container> containers) {
+        // TODO: Implement option to ignore hotbar, and maybe a way to tag items to be ignored
         var inventory = player.getInventory();
         for (var container : containers) {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
