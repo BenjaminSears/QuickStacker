@@ -32,12 +32,9 @@ public class QuickStackerService {
         return nearbyContainers;
     }
 
-    public void FindMatchingItems(LocalPlayer player, List<ChestBlockEntity> chests) {
+    public void FindMatchingItems(LocalPlayer player, List<Container> containers) {
         var inventory = player.getInventory();
-        for (var chest : chests) {
-            if (chest.isEmpty()) {
-                continue;
-            }
+        for (var container : containers) {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 var j = 1;
             }
