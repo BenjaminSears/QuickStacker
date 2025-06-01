@@ -20,7 +20,7 @@ public class ClientEvents {
     private static BlockPos playerPosition;
     private static LocalPlayer player;
     private static Level level;
-    private static int radius = 20;
+    private static int radius = 10;
 
     @Mod.EventBusSubscriber(modid = QuickStacker.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
