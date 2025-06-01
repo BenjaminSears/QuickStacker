@@ -13,7 +13,7 @@ public class KeyBinding {
     public static final KeyMapping quickStackKey = new KeyMapping(
             QuickStackKeyDescription,
             KeyConflictContext.IN_GAME,
-            KeyModifier.CONTROL,
+            KeyModifier.ALT,
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_S,
             QuickStackKeyCategory
