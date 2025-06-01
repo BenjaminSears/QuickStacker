@@ -1,6 +1,8 @@
 package net.simplydivine.quickstacker.services;
 
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -9,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuickStackerService {
-    public List<BlockEntity> getNearbyChests(Level world, BlockPos pos, int radius) {
-        List<BlockEntity> nearbyChests = new ArrayList<>();
+    public  List<Container> GetNearbyContainers(Level world, BlockPos pos, int radius, boolean includeEmpty) {
+        List<Container> nearbyContainers = new ArrayList<>();
 
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
@@ -18,13 +20,31 @@ public class QuickStackerService {
                     BlockPos checkPos = pos.offset(x, y, z);
                     BlockEntity blockEntity = world.getBlockEntity(checkPos);
 
-                    if (blockEntity instanceof ChestBlockEntity) {
-                        nearbyChests.add(blockEntity);
+                    if (blockEntity instanceof Container container) {
+                        if (container.isEmpty() == includeEmpty) {
+                            nearbyContainers.add(container);
+                        }
                     }
                 }
             }
         }
 
-        return nearbyChests;
+        return nearbyContainers;
+    }
+
+    public void FindMatchingItems(LocalPlayer player, List<ChestBlockEntity> chests) {
+        var inventory = player.getInventory();
+        for (var chest : chests) {
+            if (chest.isEmpty()) {
+                continue;
+            }
+            for (int i = 0; i < inventory.getContainerSize(); i++) {
+                var j = 1;
+            }
+        }
+    }
+
+    public void MoveItems(LocalPlayer player, ChestBlockEntity chest) {
+
     }
 }

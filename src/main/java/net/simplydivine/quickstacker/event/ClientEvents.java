@@ -16,15 +16,11 @@ import net.simplydivine.quickstacker.util.KeyBinding;
 
 public class ClientEvents {
 
-    private static QuickStackerService quickStackerService;
+    private static QuickStackerService quickStackerService = new QuickStackerService();;
     private static BlockPos playerPosition;
     private static LocalPlayer player;
     private static Level level;
     private static int radius = 20;
-
-    public ClientEvents() {
-        quickStackerService = new QuickStackerService();
-    }
 
     @Mod.EventBusSubscriber(modid = QuickStacker.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
@@ -35,7 +31,8 @@ public class ClientEvents {
                 level = player.level();
                 playerPosition = player.blockPosition();
                 Minecraft.getInstance().player.sendSystemMessage(Component.literal("Pressed a , player position:" + playerPosition));
-                var nearbyChests = quickStackerService.getNearbyChests(level, playerPosition, radius);
+                var nearbyChests = quickStackerService.GetNearbyContainers(level, playerPosition, radius, false);
+                quickStackerService.FindMatchingItems(player, nearbyChests);
             }
         }
     }
