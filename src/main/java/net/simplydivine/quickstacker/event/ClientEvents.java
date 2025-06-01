@@ -24,8 +24,6 @@ public class ClientEvents {
 
     public ClientEvents() {
         quickStackerService = new QuickStackerService();
-        player = Minecraft.getInstance().player;
-        level = player.level();
     }
 
     @Mod.EventBusSubscriber(modid = QuickStacker.MODID, value = Dist.CLIENT)
@@ -33,6 +31,8 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent event) {
             if (KeyBinding.quickStackKey.consumeClick()) {
+                player = Minecraft.getInstance().player;
+                level = player.level();
                 playerPosition = player.blockPosition();
                 Minecraft.getInstance().player.sendSystemMessage(Component.literal("Pressed a , player position:" + playerPosition));
                 var nearbyChests = quickStackerService.getNearbyChests(level, playerPosition, radius);
@@ -43,7 +43,7 @@ public class ClientEvents {
     @Mod.EventBusSubscriber(modid = QuickStacker.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         @SubscribeEvent
-        public void onKeyRegister(RegisterKeyMappingsEvent event) {
+        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBinding.quickStackKey);
         }
     }
